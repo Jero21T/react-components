@@ -1,17 +1,17 @@
-// TODO
-var GroceryList = () => (
-  <GroceryListItem items = {['A','B','C']}/>
-);
+// // TODO
+// var GroceryList = () => (
+//   <GroceryListItem items = {['A','B','C']}/>
+// );
 
-var GroceryListItem = (props) =>(
- <ul>
-    <li>{props.items[0]}</li>
-    <li>{props.items[1]}</li>
-    <li>{props.items[2]}</li>
-  </ul>
-)
+// var GroceryListItem = (props) =>(
+//  <ul>
+//     <li>{props.items[0]}</li>
+//     <li>{props.items[1]}</li>
+//     <li>{props.items[2]}</li>
+//   </ul>
+// )
 
-ReactDOM.render(<GroceryList />, document.getElementById("app"));
+// ReactDOM.render(<GroceryList />, document.getElementById("app"));
 
 
 // A class component can be defined as an ES6 class
@@ -24,18 +24,31 @@ class GroceryListItem extends React.Component {
   constructor(props) {
     // Equivalent to ES5's React.Component.call(this, props)
     super(props);
+    
+    this.state ={
+      done: false
+    };
   }
+  
+  onListItemHover() {
+    this.setState({
+      done: !this.state.done
+    });
+  }
+  
 
   // Every class component must have a `render` method
   // Stateless functional components are pretty much just this method
   render() {
-
+  
+    var style = { textDecoration: this.state.done ? 'line-through': 'none'
+    
+    };
     // `props` is no longer passed as an argument,
     // but instead accessed with `this.props`
-    return {(
-      <li>{this.props.item}</li>
+    return (
+      <li style={style} onMouseOver={this.onListItemHover.bind(this)}>{this.props.item}</li>
     );
-}
   }
 
 }
@@ -49,6 +62,6 @@ var GroceryList = (props) => (
   </ul>
 );
 
-ReactDOM.render(<GroceryList />, document.getElementById("app"));
+ReactDOM.render(<GroceryList items={['a','b']} />, document.getElementById("app"));
 
 
